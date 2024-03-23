@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net Salary Calculator</title>
+</head>
+<body>
+    <script>
+        function calculateNetSalary(basicSalary, benefits) {
+    // Tax rates and deductions
+    const TAX_RATES = { tier1: { rate: 0.1, threshold: 24000 }, tier2: { rate: 0.25, threshold: 32333 }, tier3: { rate: 0.3, threshold: 42767 } };
+    const NHIF_RATES = [0, 150, 300, 400, 500, 600, 750, 850, 900, 950, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200];
+    const NSSF_EMPLOYEE_RATE = 0.06;
+    const NSSF_EMPLOYER_RATE = 0.06;
+
+    // Calculate gross salary
+    const grossSalary = basicSalary + benefits;
+
+    // Calculate PAYE
+    let payee = 0;
+    for (const tier in TAX_RATES) {
+        if (grossSalary > TAX_RATES[tier].threshold) {
+            payee += TAX_RATES[tier].rate * (grossSalary - TAX_RATES[tier].threshold);
+        }
+    }
+
+    // Calculate NHIF Deduction
+    let nhifDeduction = NHIF_RATES.find(rate => grossSalary <= rate) || NHIF_RATES[NHIF_RATES.length - 1];
+
+    // Calculate NSSF Deduction
+    const nssfDeduction = NSSF_EMPLOYEE_RATE * basicSalary;
+
+    // Calculate Net Salary
+    const netSalary = grossSalary - payee - nhifDeduction - nssfDeduction;
+
+    // Return results
+    return {
+        grossSalary: grossSalary,
+        payee: payee,
+        nhifDeduction: nhifDeduction,
+        nssfDeduction: nssfDeduction,
+        netSalary: netSalary
+    };
+}
+
+// Example usage:
+const salaryDetails = calculateNetSalary(60000, 5000);
+console.log("Gross Salary: KES " + salaryDetails.grossSalary);
+console.log("PAYE: KES " + salaryDetails.payee);
+console.log("NHIF Deduction: KES " + salaryDetails.nhifDeduction);
+console.log("NSSF Deduction: KES " + salaryDetails.nssfDeduction);
+console.log("Net Salary: KES " + salaryDetails.netSalary);
+    </script>
+</body>
+</html>

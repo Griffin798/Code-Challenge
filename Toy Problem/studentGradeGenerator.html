@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Generator</title>
+</head>
+<body>
+    <script>
+        function calculateGrade(mark) {
+            if (mark > 79) {
+                return 'A';
+            } else if (mark >= 60) {
+                return 'B';
+            } else if (mark >= 50) {
+                return 'C';
+            } else if (mark >= 40) {
+                return 'D';
+            } else {
+                return 'E';
+            }
+        }
+        
+        // Function to prompt user for mark
+        function promptUserForMark() {
+            let mark = parseFloat(prompt("Enter the student's mark (between 0 and 100):"));
+            
+            // Validate input
+            if (isNaN(mark) || mark < 0 || mark > 100) {
+                console.log("Please enter a valid mark between 0 and 100.");
+                promptUserForMark(); // Prompt again
+            } else {
+                let grade = calculateGrade(mark);
+                console.log("The student's grade is: " + grade);
+            }
+        }
+        
+        // Start the program
+        promptUserForMark();
+        </script>
+</body>
+</html>

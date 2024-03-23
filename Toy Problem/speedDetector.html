@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Detector</title>
+</head>
+<body>
+    <script>
+        function checkSpeed(speed) {
+    const speedLimit = 70;
+    const demeritPointsPer5Kmph = 1;
+    const maxDemeritPoints = 12;
+
+    if (speed <= speedLimit) {
+        console.log("Ok");
+    } else {
+        const excessSpeed = speed - speedLimit;
+        const demeritPoints = Math.floor(excessSpeed / 5);
+        const totalDemeritPoints = Math.min(demeritPoints, maxDemeritPoints);
+        
+        console.log("Points: " + totalDemeritPoints);
+        
+        if (totalDemeritPoints >= maxDemeritPoints) {
+            console.log("License suspended");
+        }
+    }
+}
+
+
+checkSpeed(60); 
+checkSpeed(85);
+checkSpeed(110);
+    </script>
+</body>
+</html>
